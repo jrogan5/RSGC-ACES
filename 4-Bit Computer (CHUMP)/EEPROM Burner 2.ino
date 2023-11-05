@@ -1,8 +1,8 @@
 // PROJECT  :AT28C16EEPROMShieldVersion
 // PURPOSE  :Flashes the AT28C16 (2Kx8) EEPROM IC for Program, Control, and 7-Segment Hex Codes
 // COURSE   :ICS4U-E
-// AUTHOR   :B. Eater. adapted for ACES' CHUMP use by C. D'Arcy
-// DATE     :Confirmed: 2020 11 01. Updated: 2022 10 13 for 2022/2023 ICS4U-E
+// AUTHOR   :B. Eater. adapted for CHUMP by J. Rogan and C. D'Arcy
+// DATE     :Updated: 2022 10 13
 // MCU      :328P
 // STATUS   :Working (on RSGC ACES EEPROM Burner Shield for 28C16A-15)
 // NOTE     :Close as many other open applications as possible to
@@ -23,26 +23,7 @@
 //          :C. D'Arcy's EEPROM Shield...
 //            https://drive.google.com/file/d/12FoAc5GdYHuSdHf3LrMWL7VSGYHGxhIQ/view
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ACES Encoding of Instructions is changed from Feinberg to
-//  facilitate simpler identification of the two branching instructions
-// CHUMPanese INSTRUCTION SET where n: 0-constant, 1-memory (RAM)
-//  000n  LOAD
-//  001n  ADD
-//  010n  SUBTRACT
-//  011n  STORETO
-//  100n  READ
-//  101n  User-defined  // placed here to facilitate branch coding below
-//  110n  GOTO          // Moved here for upper two bits high
-//  111n  IFZERO        //
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Feinberg's Basic CHUMPanese Program Example
-//  0000: 10000010  READ    2   ;addr<-2
-//  0001: 00010000  LOAD    IT  ;accum<-mem[addr]
-//  0002: 00100001  ADD     1   ;accum++
-//  0003: 01100010  STORETO 2   ;mem[2]<-accum
-//  0004: 11000000  GOTO    0   ;pc<-0000
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// I employ a 16-byte buffer for consistent CHUMP writing and reading
+// Ben Eater employs a 16-byte buffer for consistent CHUMP writing and reading
 #define DFLT  0xFF     //default byte contents for EEPROM write buffer
 byte codeWrite[16] = { DFLT, DFLT, DFLT, DFLT, //storage for code written
                        DFLT, DFLT, DFLT, DFLT,
